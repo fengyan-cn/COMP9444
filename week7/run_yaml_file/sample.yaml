@@ -1,0 +1,51 @@
+model:
+  name: SimpleObjectDetectionModel
+  type: CNN
+  input_shape: [3, 224, 224]
+  num_classes: 20
+  layers:
+    - type: Conv2D
+      filters: 32
+      kernel_size: [3, 3]
+      strides: [1, 1]
+      padding: same
+      activation: ReLU
+    - type: MaxPooling2D
+      pool_size: [2, 2]
+      strides: [2, 2]
+    - type: Conv2D
+      filters: 64
+      kernel_size: [3, 3]
+      strides: [1, 1]
+      padding: same
+      activation: ReLU
+    - type: MaxPooling2D
+      pool_size: [2, 2]
+      strides: [2, 2]
+    - type: Conv2D
+      filters: 128
+      kernel_size: [3, 3]
+      strides: [1, 1]
+      padding: same
+      activation: ReLU
+    - type: MaxPooling2D
+      pool_size: [2, 2]
+      strides: [2, 2]
+    - type: Flatten
+    - type: Dense
+      units: 512
+      activation: ReLU
+    - type: Dropout
+      rate: 0.5
+    - type: Dense
+      units: num_classes
+      activation: Softmax
+optimizer:
+  type: SGD
+  learning_rate: 0.001
+  momentum: 0.9
+loss: categorical_crossentropy
+metrics:
+  - accuracy
+  - precision
+  - recall
